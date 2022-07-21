@@ -34,7 +34,8 @@ javafx {
 }
 
 dependencies {
-
+  implementation("org.glassfish:javax.json:1.1.4")
+  implementation("javax.json:javax.json-api:1.1.4")
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
