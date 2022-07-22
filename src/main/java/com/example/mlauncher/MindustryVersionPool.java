@@ -15,7 +15,7 @@ public class MindustryVersionPool {
         JsonArray arr = URLJsonReader.readJsonArray("https://api.github.com/repos/anuken/Mindustry/releases");
         for (int i = 0; i < arr.size(); i++) {
             JsonObject obj = arr.getJsonObject(i);
-            objects.add(new MindustryVersion(obj.getString("name")));
+            objects.add(new MindustryVersion(obj.getString("name"), obj.getJsonArray("assets").getJsonObject(0).getString("browser_download_url")));
         }
     }
 

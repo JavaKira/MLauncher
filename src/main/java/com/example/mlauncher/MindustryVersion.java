@@ -4,9 +4,11 @@ import java.io.File;
 
 public class MindustryVersion {
     private final String name;
+    private final String downloadUrl;
 
-    public MindustryVersion(String name) {
+    public MindustryVersion(String name, String downloadUrl) {
         this.name = name;
+        this.downloadUrl = downloadUrl;
     }
 
     @Override
