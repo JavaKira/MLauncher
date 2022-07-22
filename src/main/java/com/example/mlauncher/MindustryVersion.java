@@ -3,6 +3,8 @@ package com.example.mlauncher;
 import com.example.mlauncher.util.FileDownloader;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 
 public class MindustryVersion {
     private final String name;
@@ -30,6 +32,10 @@ public class MindustryVersion {
     }
 
     public void launch() {
-        System.out.println("launch " + name);
+        try {
+            Runtime.getRuntime().exec(new String[]{"java", "-jar", '"' + System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name + "\\Mindustry.jar" + '"'});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
