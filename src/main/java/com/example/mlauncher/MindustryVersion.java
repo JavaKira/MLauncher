@@ -1,5 +1,7 @@
 package com.example.mlauncher;
 
+import com.example.mlauncher.util.FileDownloader;
+
 import java.io.File;
 
 public class MindustryVersion {
@@ -18,5 +20,16 @@ public class MindustryVersion {
 
     public boolean isDownloaded() {
         return new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name).exists();
+    }
+
+    public void download() {
+        File dir = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
+        //noinspection ResultOfMethodCallIgnored
+        dir.mkdir();
+        FileDownloader.load(dir.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
+    }
+
+    public void launch() {
+        System.out.println("launch " + name);
     }
 }
