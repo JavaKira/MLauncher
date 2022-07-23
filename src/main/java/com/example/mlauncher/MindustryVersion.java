@@ -25,10 +25,12 @@ public class MindustryVersion {
     }
 
     public void download() {
-        File dir = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
-        //noinspection ResultOfMethodCallIgnored
-        dir.mkdir();
-        FileDownloader.load(dir.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
+        new Thread(() -> {
+            File dir = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
+            //noinspection ResultOfMethodCallIgnored
+            dir.mkdir();
+            FileDownloader.load(dir.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
+        }).start();
     }
 
     public void launch() {
