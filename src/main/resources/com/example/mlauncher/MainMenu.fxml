@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mlauncher.MainMenuController">
    <children>
       <Region prefHeight="117.0" style="-fx-background-color: #696969;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox alignment="CENTER" prefHeight="117.0" prefWidth="1013.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -22,26 +22,6 @@
             </ImageView>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="415.0" spacing="25.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: #696969;" text="Mods" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #696969;" text="Maps" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: #696969;" text="Scheme" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #696969;" text="Info" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
                   <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" style="-fx-background-color: #696969;" text="Settings" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -56,8 +36,8 @@
          <children>
             <HBox prefHeight="56.0" prefWidth="200.0">
                <children>
-                  <Button minHeight="32.0" minWidth="165.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="165.0" style="-fx-background-color: #9ACD32;" text="Launch" />
-                  <ChoiceBox fx:id="VersionBox" prefHeight="32.0" prefWidth="36.0" style="-fx-background-color: #9ACD32;" />
+                  <Button fx:id="actionButton" minHeight="32.0" minWidth="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="105.0" style="-fx-background-color: #9ACD32;" text="Launch" />
+                  <ChoiceBox fx:id="versionBox" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #9ACD32;" />
                </children>
             </HBox>
          </children>
