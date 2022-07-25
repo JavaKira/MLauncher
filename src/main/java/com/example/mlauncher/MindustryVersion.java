@@ -1,10 +1,9 @@
 package com.example.mlauncher;
 
-import com.example.mlauncher.util.FileDownloader;
-
+import com.example.mlauncher.util.FileDownload;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MindustryVersion {
     private final String name;
@@ -24,13 +23,13 @@ public class MindustryVersion {
         return new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name).exists();
     }
 
-    public void download() {
-        new Thread(() -> {
-            File dir = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
-            //noinspection ResultOfMethodCallIgnored
-            dir.mkdir();
-            FileDownloader.load(dir.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
-        }).start();
+    public FileDownload download() {
+        File dir = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
+        //noinspection ResultOfMethodCallIgnored
+        dir.mkdir();
+        FileDownload fileDownload = new FileDownload(dir.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
+        new Thread(fileDownload::start).start();
+        return fileDownload;
     }
 
     public void launch() {
