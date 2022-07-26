@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -32,14 +33,15 @@
          </children>
       </VBox>
       <Region layoutX="-6.0" layoutY="360.0" prefHeight="40.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <HBox alignment="TOP_CENTER" layoutY="360.0" prefHeight="40.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="CENTER" layoutY="360.0" prefHeight="40.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <HBox prefHeight="56.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="actionButton" minHeight="32.0" minWidth="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="105.0" style="-fx-background-color: #9ACD32;" text="Launch" />
-                  <ChoiceBox fx:id="versionBox" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #9ACD32;" />
-               </children>
-            </HBox>
+            <ProgressBar fx:id="downloadProgressBar" prefHeight="18.0" prefWidth="201.0" progress="0.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="200.0" layoutY="332.0" prefHeight="34.0" prefWidth="200.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="actionButton" minHeight="32.0" minWidth="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="105.0" style="-fx-background-color: #9ACD32;" text="Launch" />
+            <ChoiceBox fx:id="versionBox" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #9ACD32;" />
          </children>
       </HBox>
    </children>

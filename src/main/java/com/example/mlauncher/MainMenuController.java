@@ -1,5 +1,6 @@
 package com.example.mlauncher;
 
+import com.example.mlauncher.util.FileDownload;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -28,8 +29,10 @@ public class MainMenuController {
             actionButton.onActionProperty().setValue(event1 -> {
                 if (versionBox.getValue().isDownloaded())
                     versionBox.getValue().launch();
-                else
-                    versionBox.getValue().download();
+                else {
+                    FileDownload fileDownload = versionBox.getValue().download();
+                    fileDownload.setOnRead(integer -> downloadProgressBar.setProgress((float)integer / versionBox.getValue().getSize()));
+                }
             });
         });
     }

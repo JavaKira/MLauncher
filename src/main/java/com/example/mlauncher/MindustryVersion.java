@@ -3,14 +3,15 @@ package com.example.mlauncher;
 import com.example.mlauncher.util.FileDownload;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MindustryVersion {
     private final String name;
+    private final int size;
     private final String downloadUrl;
 
-    public MindustryVersion(String name, String downloadUrl) {
+    public MindustryVersion(String name, int size, String downloadUrl) {
         this.name = name;
+        this.size = size;
         this.downloadUrl = downloadUrl;
     }
 
@@ -38,5 +39,9 @@ public class MindustryVersion {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int getSize() {
+        return size;
     }
 }
