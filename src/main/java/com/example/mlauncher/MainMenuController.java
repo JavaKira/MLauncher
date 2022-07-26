@@ -30,8 +30,10 @@ public class MainMenuController {
                 if (versionBox.getValue().isDownloaded())
                     versionBox.getValue().launch();
                 else {
+                    downloadProgressBar.setOpacity(1);
                     FileDownload fileDownload = versionBox.getValue().download();
                     fileDownload.setOnRead(integer -> downloadProgressBar.setProgress((float)integer / versionBox.getValue().getSize()));
+                    fileDownload.setOnEnd(event2 -> downloadProgressBar.setOpacity(0));
                 }
             });
         });

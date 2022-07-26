@@ -16,6 +16,8 @@ public class FileDownload {
     private EventHandler<ActionEvent> onUpdate;
     private IntConsumer onRead;
 
+    private EventHandler<ActionEvent> onEnd;
+
     private final ReadableConsumerByteChannel readableConsumerByteChannel;
 
     public FileDownload(String filename, String url) {
@@ -27,12 +29,14 @@ public class FileDownload {
         }
 
         onUpdate = event -> readableConsumerByteChannel.setOnRead(getOnRead());
+        onEnd = event -> {};
     }
 
     public void start() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(filename)) {;
+        try (FileOutputStream fileOutputStream = new FileOutputStream(filename)) {
             fileOutputStream.getChannel()
                     .transferFrom(readableConsumerByteChannel, 0, Long.MAX_VALUE);
+            onEnd.handle(new ActionEvent());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -49,5 +53,9 @@ public class FileDownload {
 
     public void setOnUpdate(EventHandler<ActionEvent> onUpdate) {
         this.onUpdate = onUpdate;
+    }
+
+    public void setOnEnd(EventHandler<ActionEvent> onEnd) {
+        this.onEnd = onEnd;
     }
 }
