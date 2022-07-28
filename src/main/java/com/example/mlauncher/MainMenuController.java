@@ -2,10 +2,13 @@ package com.example.mlauncher;
 
 import com.example.mlauncher.util.FileDownload;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
+
+import java.util.Properties;
 
 public class MainMenuController {
     private final MindustryVersionPool mindustryVersionPool;
@@ -24,8 +27,14 @@ public class MainMenuController {
 
     @FXML
     public void initialize() {
+        Properties properties = MLauncherPropertiesFacade.getInstance().getProperties();
+        versionBox.setValue(mindustryVersionPool.getObjects().stream()
+                .filter(mindustryVersion -> mindustryVersion.toString().equals(properties.getProperty("LastSelectedVersion")))
+                .findAny().orElse(mindustryVersionPool.getObjects().get(0)));
         versionBox.getItems().addAll(mindustryVersionPool.getObjects());
         versionBox.onActionProperty().setValue(event -> {
+            properties.setProperty("LastSelectedVersion", versionBox.getValue().toString());
+            MLauncherPropertiesFacade.getInstance().storeProperties();
             updateActionButton();
             actionButton.onActionProperty().setValue(event1 -> {
                 if (versionBox.getValue().isDownloaded())
@@ -41,6 +50,7 @@ public class MainMenuController {
                 }
             });
         });
+        versionBox.onActionProperty().get().handle(new ActionEvent());
     }
 
     public void updateActionButton() {
