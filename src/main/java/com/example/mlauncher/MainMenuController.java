@@ -22,7 +22,7 @@ public class MainMenuController {
 
     public MainMenuController() {
         mindustryVersionPool = new MindustryVersionPool();
-        mindustryVersionPool.initialize();
+        mindustryVersionPool.initialize(true);
     }
 
     @FXML

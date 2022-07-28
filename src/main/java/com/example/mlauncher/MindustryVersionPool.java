@@ -8,22 +8,29 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class MindustryVersionPool {
     private final List<MindustryVersion> objects = new ArrayList<>();
 
-    public void initialize() {
-        JsonArray arr = URLJsonReader.readJsonArray("https://api.github.com/repos/anuken/Mindustry/releases");
+    public void initialize(boolean bEBuilds) {
+        readRepositoriesReleases("https://api.github.com/repos/anuken/Mindustry/releases");
+        if (bEBuilds) {
+            readRepositoriesReleases("https://api.github.com/repos/anuken/MindustryBuilds/releases");
+            objects.sort(Comparator.comparing(MindustryVersion::getCreatedAt));
+            Collections.reverse(objects);
+        }
+    }
+
+    private void readRepositoriesReleases(String url) {
+        JsonArray arr = URLJsonReader.readJsonArray(url);
         for (int i = 0; i < arr.size(); i++) {
             JsonObject obj = arr.getJsonObject(i);
             JsonObject assetObj = obj.getJsonArray("assets").getJsonObject(0);
+            String name = obj.getString("name");
             try {
                 objects.add(new MindustryVersion(
-                        obj.getString("name"),
+                        name.isEmpty() ? "Build " + obj.getString("tag_name") : name,
                         assetObj.getInt("size"),
                         assetObj.getString("browser_download_url"),
                         new SimpleDateFormat("yyyy-MM-ddhh:mm:ss").parse(assetObj.getString("created_at").replace("T", "").replace("Z", ""))
