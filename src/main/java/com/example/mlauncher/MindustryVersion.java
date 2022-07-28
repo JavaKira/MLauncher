@@ -3,16 +3,19 @@ package com.example.mlauncher;
 import com.example.mlauncher.util.FileDownload;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class MindustryVersion {
     private final String name;
     private final int size;
     private final String downloadUrl;
+    private final Date createdAt;
 
-    public MindustryVersion(String name, int size, String downloadUrl) {
+    public MindustryVersion(String name, int size, String downloadUrl, Date createdAt) {
         this.name = name;
         this.size = size;
         this.downloadUrl = downloadUrl;
+        this.createdAt = createdAt;
     }
 
     @Override
@@ -43,5 +46,9 @@ public class MindustryVersion {
 
     public int getSize() {
         return size;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
     }
 }
