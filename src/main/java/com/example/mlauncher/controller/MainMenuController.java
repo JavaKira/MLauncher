@@ -1,5 +1,8 @@
-package com.example.mlauncher;
+package com.example.mlauncher.controller;
 
+import com.example.mlauncher.MLauncherPropertiesFacade;
+import com.example.mlauncher.MindustryVersion;
+import com.example.mlauncher.MindustryVersionPool;
 import com.example.mlauncher.util.FileDownload;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
