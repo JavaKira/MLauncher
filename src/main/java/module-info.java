@@ -7,4 +7,6 @@ module com.example.mlauncher {
     exports com.example.mlauncher;
     exports com.example.mlauncher.util;
     opens com.example.mlauncher.util to javafx.fxml;
+    exports com.example.mlauncher.controller;
+    opens com.example.mlauncher.controller to javafx.fxml;
 }

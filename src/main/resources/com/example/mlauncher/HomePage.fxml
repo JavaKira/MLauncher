@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E0E0E0;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mlauncher.controller.MainMenuController">
+    <children>
+        <Region prefHeight="117.0" style="-fx-background-color: #757575;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <VBox alignment="CENTER" prefHeight="117.0" prefWidth="1013.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="56.0" fitWidth="415.0">
+                    <image>
+                        <Image url="@logo.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+        <Region layoutX="-6.0" layoutY="360.0" prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: #757575;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <HBox alignment="CENTER_RIGHT" layoutX="399.0" layoutY="360.0" prefHeight="56.0" prefWidth="201.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="399.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <ProgressBar fx:id="downloadProgressBar" opacity="0.0" prefHeight="18.0" prefWidth="201.0" progress="1.0" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" layoutX="193.0" layoutY="344.0" prefHeight="56.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="213.0">
+            <children>
+                <Button fx:id="actionButton" minHeight="32.0" minWidth="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="105.0" style="-fx-background-color: #9ACD32;" text="Launch" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="201.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="399.0">
+            <children>
+                <ChoiceBox fx:id="versionBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="174.0" style="-fx-background-color: #9ACD32;">
+                    <HBox.margin>
+                        <Insets left="5.0" />
+                    </HBox.margin>
+                </ChoiceBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
