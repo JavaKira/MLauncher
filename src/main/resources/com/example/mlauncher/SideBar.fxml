@@ -27,7 +27,7 @@
                         <Insets left="3.0" right="3.0" top="6.0" />
                      </VBox.margin>
                      <children>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="6.0">
+                        <ImageView fitHeight="32.0" fitWidth="32.0" onMousePressed="#openSettingsPage" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="6.0">
                            <image>
                               <Image url="@icons/settingsIcon.png" />
                            </image>

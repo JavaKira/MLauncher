@@ -20,6 +20,10 @@ public class SideBarController implements Initializable {
         openHomePage();
     }
 
+    public void openSettingsPage() {
+        openPage(MLauncherApplication.class.getResource("SettingsPage.fxml"));
+    }
+
     public void openHomePage() {
         openPage(MLauncherApplication.class.getResource("HomePage.fxml"));
     }
