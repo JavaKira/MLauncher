@@ -15,26 +15,36 @@ public class SideBarController implements Initializable {
     @FXML
     private StackPane contentArea;
 
+    private Parent settingsPage;
+    private Parent homePage;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         openHomePage();
     }
 
     public void openSettingsPage() {
-        openPage(MLauncherApplication.class.getResource("SettingsPage.fxml"));
+        if (settingsPage == null)
+            settingsPage = loadPage(MLauncherApplication.class.getResource("SettingsPage.fxml"));
+        openPage(settingsPage);
     }
 
     public void openHomePage() {
-        openPage(MLauncherApplication.class.getResource("HomePage.fxml"));
+        if (homePage == null)
+            homePage = loadPage(MLauncherApplication.class.getResource("HomePage.fxml"));
+        openPage(homePage);
     }
 
-    private void openPage(URL url) {
+    private Parent loadPage(URL url) {
         try {
-            Parent parent = new FXMLLoader(url).load();
-            contentArea.getChildren().removeAll();
-            contentArea.getChildren().setAll(parent);
+            return new FXMLLoader(url).load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void openPage(Parent parent) {
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(parent);
     }
 }
