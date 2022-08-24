@@ -10,12 +10,14 @@ public class MindustryVersion {
     private final int size;
     private final String downloadUrl;
     private final Date createdAt;
+    private final File folder;
 
     public MindustryVersion(String name, int size, String downloadUrl, Date createdAt) {
         this.name = name;
         this.size = size;
         this.downloadUrl = downloadUrl;
         this.createdAt = createdAt;
+        folder = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
     }
 
     @Override
@@ -24,21 +26,20 @@ public class MindustryVersion {
     }
 
     public boolean isDownloaded() {
-        return new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name).exists();
+        return folder.exists();
     }
 
     public FileDownload download() {
-        File dir = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
         //noinspection ResultOfMethodCallIgnored
-        dir.mkdir();
-        FileDownload fileDownload = new FileDownload(dir.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
+        folder.mkdir();
+        FileDownload fileDownload = new FileDownload(folder.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
         new Thread(fileDownload::start).start();
         return fileDownload;
     }
 
     public void launch() {
         try {
-            Runtime.getRuntime().exec(new String[]{"java", "-jar", '"' + System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name + "\\Mindustry.jar" + '"'});
+            Runtime.getRuntime().exec(new String[]{"java", "-jar", '"' + folder.getAbsolutePath() + "\\Mindustry.jar" + '"'});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
