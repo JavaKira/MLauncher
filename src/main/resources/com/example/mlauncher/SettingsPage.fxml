@@ -13,17 +13,17 @@
    <children>
       <VBox prefHeight="400.0" prefWidth="200.0" spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="219.0" text="BE builds">
+            <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="219.0" text="BE builds" fx:id="beBuildsCheckBox">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </CheckBox>
-            <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="219.0" text="old BE builds">
+            <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="219.0" text="old BE builds" fx:id="oldBeBuildCheckBox">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </CheckBox>
-            <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="219.0" text="old versions">
+            <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="219.0" text="old versions" fx:id="oldVersionsCheckBox">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -31,8 +31,8 @@
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="198.0" text="Versions folder" textAlignment="CENTER" />
             <HBox prefWidth="200.0">
                <children>
-                  <TextField prefHeight="25.0" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" style="-fx-background-color: #9ACD32;" text="Open" />
+                  <TextField prefHeight="25.0" fx:id="pathTextField" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" style="-fx-background-color: #9ACD32;" text="Open" fx:id="pathOpenButton" />
                </children>
             </HBox>
          </children>
@@ -40,6 +40,6 @@
             <Insets left="6.0" />
          </padding>
       </VBox>
-      <Button mnemonicParsing="false" style="-fx-background-color: #9ACD32;" text="Reset settings" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" />
+      <Button mnemonicParsing="false" style="-fx-background-color: #9ACD32;" text="Reset settings" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" fx:id="resetButton" />
    </children>
 </AnchorPane>
