@@ -4,8 +4,6 @@ import com.example.mlauncher.util.URLJsonReader;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -34,8 +32,8 @@ public class MindustryVersionPool {
                         assetObj.getInt("size"),
                         assetObj.getString("browser_download_url"),
                         new SimpleDateFormat("yyyy-MM-ddhh:mm:ss").parse(assetObj.getString("created_at").replace("T", "").replace("Z", "")),
-                        obj.getString("body")
-                ));
+                        obj.getString("body"),
+                        name.isEmpty()));
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

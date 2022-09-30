@@ -60,6 +60,7 @@ public class MainMenuController {
         });
         versionBox.onActionProperty().get().handle(new ActionEvent());
         mindustryVersionPool.getObjects().forEach(mindustryVersion -> {
+            if (mindustryVersion.isBE()) return;
             newsPane.getChildren().add(new Label(mindustryVersion.getName()));
             newsPane.getChildren().add(new Text(mindustryVersion.getBody() + "\n"));
         });
