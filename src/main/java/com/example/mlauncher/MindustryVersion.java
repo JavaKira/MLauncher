@@ -11,12 +11,14 @@ public class MindustryVersion {
     private final String downloadUrl;
     private final Date createdAt;
     private final File folder;
+    private final String body;
 
-    public MindustryVersion(String name, int size, String downloadUrl, Date createdAt) {
+    public MindustryVersion(String name, int size, String downloadUrl, Date createdAt, String body) {
         this.name = name;
         this.size = size;
         this.downloadUrl = downloadUrl;
         this.createdAt = createdAt;
+        this.body = body;
         folder = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions\\" + name);
     }
 
@@ -51,5 +53,13 @@ public class MindustryVersion {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBody() {
+        return body;
     }
 }

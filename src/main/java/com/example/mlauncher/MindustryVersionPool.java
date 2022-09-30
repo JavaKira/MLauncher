@@ -33,7 +33,8 @@ public class MindustryVersionPool {
                         name.isEmpty() ? "Build " + obj.getString("tag_name") : name,
                         assetObj.getInt("size"),
                         assetObj.getString("browser_download_url"),
-                        new SimpleDateFormat("yyyy-MM-ddhh:mm:ss").parse(assetObj.getString("created_at").replace("T", "").replace("Z", ""))
+                        new SimpleDateFormat("yyyy-MM-ddhh:mm:ss").parse(assetObj.getString("created_at").replace("T", "").replace("Z", "")),
+                        obj.getString("body")
                 ));
             } catch (ParseException e) {
                 throw new RuntimeException(e);

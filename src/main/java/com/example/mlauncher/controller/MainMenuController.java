@@ -9,7 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.util.Properties;
 
@@ -22,6 +25,8 @@ public class MainMenuController {
     private ProgressBar downloadProgressBar;
     @FXML
     private Button actionButton;
+    @FXML
+    private Pane newsPane;
 
     public MainMenuController() {
         mindustryVersionPool = new MindustryVersionPool();
@@ -54,6 +59,10 @@ public class MainMenuController {
             });
         });
         versionBox.onActionProperty().get().handle(new ActionEvent());
+        mindustryVersionPool.getObjects().forEach(mindustryVersion -> {
+            newsPane.getChildren().add(new Label(mindustryVersion.getName()));
+            newsPane.getChildren().add(new Text(mindustryVersion.getBody() + "\n"));
+        });
     }
 
     public void updateActionButton() {
