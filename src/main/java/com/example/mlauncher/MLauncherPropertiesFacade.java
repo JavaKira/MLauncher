@@ -42,34 +42,25 @@ public class MLauncherPropertiesFacade {
     }
 
     public void setDefaults() {
-        setBeBuilds(false);
-        setOldBeBuilds(false);
-        setOldVersions(true);
+        setBeBuilds(0);
+        setVersions(1);
         setPath(System.getenv("APPDATA") + "\\MLauncher\\Versions\\");
     }
 
-    public void setBeBuilds(boolean beBuilds) {
+    public void setBeBuilds(int beBuilds) {
         properties.setProperty("beBuilds", String.valueOf(beBuilds));
     }
 
-    public boolean getBeBuilds() {
-        return Boolean.parseBoolean(properties.getProperty("beBuilds"));
+    public int getBeBuilds() {
+        return Integer.parseInt(properties.getProperty("beBuilds"));
     }
 
-    public void setOldBeBuilds(boolean oldBeBuilds) {
-        properties.setProperty("oldBeBuilds", String.valueOf(oldBeBuilds));
+    public void setVersions(int oldVersions) {
+        properties.setProperty("versions", String.valueOf(oldVersions));
     }
 
-    public boolean getOldBeBuilds() {
-        return Boolean.parseBoolean(properties.getProperty("oldBeBuilds"));
-    }
-
-    public void setOldVersions(boolean oldVersions) {
-        properties.setProperty("oldVersions", String.valueOf(oldVersions));
-    }
-
-    public boolean getOldVersions() {
-        return Boolean.parseBoolean(properties.getProperty("oldVersions"));
+    public int getVersions() {
+        return Integer.parseInt(properties.getProperty("versions"));
     }
 
     public void setPath(String path) {

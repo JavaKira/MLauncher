@@ -1,12 +1,11 @@
 package com.example.mlauncher.controller;
 
 import com.example.mlauncher.MLauncherPropertiesFacade;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -15,11 +14,9 @@ import java.util.ResourceBundle;
 
 public class SettingsPageController implements Initializable {
     @FXML
-    private CheckBox beBuildsCheckBox;
+    private Slider beBuildsSlider;
     @FXML
-    private CheckBox oldBeBuildCheckBox;
-    @FXML
-    private CheckBox oldVersionsCheckBox;
+    private Slider buildsSlider;
     @FXML
     private TextField pathTextField;
     @FXML
@@ -29,19 +26,14 @@ public class SettingsPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        beBuildsCheckBox.setSelected(MLauncherPropertiesFacade.getInstance().getBeBuilds());
-        beBuildsCheckBox.setOnAction(actionEvent -> {
-            MLauncherPropertiesFacade.getInstance().setBeBuilds(beBuildsCheckBox.isSelected());
+        beBuildsSlider.setValue(MLauncherPropertiesFacade.getInstance().getBeBuilds());
+        beBuildsSlider.setOnDragDetected(actionEvent -> {
+            MLauncherPropertiesFacade.getInstance().setBeBuilds((int) beBuildsSlider.getValue());
             MLauncherPropertiesFacade.getInstance().storeProperties();
         });
-        oldBeBuildCheckBox.setSelected(MLauncherPropertiesFacade.getInstance().getOldBeBuilds());
-        oldBeBuildCheckBox.setOnAction(actionEvent -> {
-            MLauncherPropertiesFacade.getInstance().setOldBeBuilds(oldBeBuildCheckBox.isSelected());
-            MLauncherPropertiesFacade.getInstance().storeProperties();
-        });
-        oldVersionsCheckBox.setSelected(MLauncherPropertiesFacade.getInstance().getOldVersions());
-        oldVersionsCheckBox.setOnAction(actionEvent -> {
-            MLauncherPropertiesFacade.getInstance().setOldVersions(oldVersionsCheckBox.isSelected());
+        beBuildsSlider.setValue(MLauncherPropertiesFacade.getInstance().getVersions());
+        buildsSlider.setOnDragDetected(actionEvent -> {
+            MLauncherPropertiesFacade.getInstance().setVersions((int) buildsSlider.getValue());
             MLauncherPropertiesFacade.getInstance().storeProperties();
         });
         pathTextField.setText(MLauncherPropertiesFacade.getInstance().getPath());
