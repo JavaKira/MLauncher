@@ -30,7 +30,10 @@ public class MainMenuController {
 
     public MainMenuController() {
         mindustryVersionPool = new MindustryVersionPool();
-        mindustryVersionPool.initialize(true);
+        mindustryVersionPool.initialize(
+                MLauncherPropertiesFacade.getInstance().getBeBuilds(),
+                MLauncherPropertiesFacade.getInstance().getVersions()
+        );
     }
 
     @FXML

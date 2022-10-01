@@ -11,10 +11,10 @@ import java.util.*;
 public class MindustryVersionPool {
     private final List<MindustryVersion> objects = new ArrayList<>();
 
-    public void initialize(boolean bEBuilds) {
-        readRepositoriesReleases("https://api.github.com/repos/anuken/Mindustry/releases");
-        if (bEBuilds) {
-            readRepositoriesReleases("https://api.github.com/repos/anuken/MindustryBuilds/releases");
+    public void initialize(int bEBuilds, int versions) {
+        readRepositoriesReleases("https://api.github.com/repos/anuken/Mindustry/releases" + "?per_page=" + versions);
+        if (bEBuilds > 0) {
+            readRepositoriesReleases("https://api.github.com/repos/anuken/MindustryBuilds/releases" + "?per_page=" + bEBuilds);
             objects.sort(Comparator.comparing(MindustryVersion::getCreatedAt));
             Collections.reverse(objects);
         }
