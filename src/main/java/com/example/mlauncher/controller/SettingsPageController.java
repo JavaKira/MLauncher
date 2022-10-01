@@ -27,12 +27,13 @@ public class SettingsPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         beBuildsSlider.setValue(MLauncherPropertiesFacade.getInstance().getBeBuilds());
-        beBuildsSlider.setOnDragDetected(actionEvent -> {
+        beBuildsSlider.setOnMouseReleased(actionEvent -> {
+            System.out.println(beBuildsSlider.getValue());
             MLauncherPropertiesFacade.getInstance().setBeBuilds((int) beBuildsSlider.getValue());
             MLauncherPropertiesFacade.getInstance().storeProperties();
         });
         beBuildsSlider.setValue(MLauncherPropertiesFacade.getInstance().getVersions());
-        buildsSlider.setOnDragDetected(actionEvent -> {
+        buildsSlider.setOnMouseReleased(actionEvent -> {
             MLauncherPropertiesFacade.getInstance().setVersions((int) buildsSlider.getValue());
             MLauncherPropertiesFacade.getInstance().storeProperties();
         });
