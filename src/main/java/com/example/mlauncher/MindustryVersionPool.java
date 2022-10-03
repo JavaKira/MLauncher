@@ -12,6 +12,7 @@ public class MindustryVersionPool {
     private final List<MindustryVersion> objects = new ArrayList<>();
 
     public void initialize(int bEBuilds, int versions) {
+        objects.clear();
         readRepositoriesReleases("https://api.github.com/repos/anuken/Mindustry/releases" + "?per_page=" + versions);
         if (bEBuilds > 0) {
             readRepositoriesReleases("https://api.github.com/repos/anuken/MindustryBuilds/releases" + "?per_page=" + bEBuilds);

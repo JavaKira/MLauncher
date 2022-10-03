@@ -14,6 +14,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+import java.util.Objects;
 import java.util.Properties;
 
 public class MainMenuController {
@@ -30,10 +31,17 @@ public class MainMenuController {
 
     public MainMenuController() {
         mindustryVersionPool = new MindustryVersionPool();
-        mindustryVersionPool.initialize(
-                MLauncherPropertiesFacade.getInstance().getBeBuilds(),
-                MLauncherPropertiesFacade.getInstance().getVersions()
-        );
+        Runnable versionsInitialize = () -> {
+            mindustryVersionPool.initialize(
+                    MLauncherPropertiesFacade.getInstance().getBeBuilds(),
+                    MLauncherPropertiesFacade.getInstance().getVersions()
+            );
+        };
+        versionsInitialize.run();
+        MLauncherPropertiesFacade.getInstance().setOnUpdated(event -> {
+            versionsInitialize.run();
+            update();
+        });
     }
 
     @FXML
@@ -62,6 +70,19 @@ public class MainMenuController {
             });
         });
         versionBox.onActionProperty().get().handle(new ActionEvent());
+        mindustryVersionPool.getObjects().forEach(mindustryVersion -> {
+            if (mindustryVersion.isBE()) return;
+            newsPane.getChildren().add(new Label(mindustryVersion.getName()));
+            newsPane.getChildren().add(new Text(mindustryVersion.getBody() + "\n"));
+        });
+    }
+
+    public void update() {
+        MindustryVersion value = versionBox.getValue();
+        versionBox.getItems().clear();
+        versionBox.getItems().addAll(mindustryVersionPool.getObjects());
+        versionBox.setValue(value);
+        newsPane.getChildren().clear();
         mindustryVersionPool.getObjects().forEach(mindustryVersion -> {
             if (mindustryVersion.isBE()) return;
             newsPane.getChildren().add(new Label(mindustryVersion.getName()));

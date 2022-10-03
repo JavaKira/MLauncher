@@ -1,5 +1,8 @@
 package com.example.mlauncher;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -8,6 +11,7 @@ public class MLauncherPropertiesFacade {
 
     private final File file;
     private final Properties properties;
+    private EventHandler<ActionEvent> onUpdated = event -> {};
 
     public static MLauncherPropertiesFacade getInstance() {
         if (instance == null)
@@ -36,6 +40,7 @@ public class MLauncherPropertiesFacade {
     public void storeProperties() {
         try {
             properties.store(new FileOutputStream(file), "");
+            onUpdated.handle(new ActionEvent());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -73,5 +78,9 @@ public class MLauncherPropertiesFacade {
 
     public Properties getProperties() {
         return properties;
+    }
+
+    public void setOnUpdated(EventHandler<ActionEvent> onUpdated) {
+        this.onUpdated = onUpdated;
     }
 }
