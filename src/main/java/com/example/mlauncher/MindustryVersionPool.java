@@ -23,22 +23,7 @@ public class MindustryVersionPool {
 
     private void readRepositoriesReleases(String url) {
         JsonArray arr = URLJsonReader.readJsonArray(url);
-        for (int i = 0; i < arr.size(); i++) {
-            JsonObject obj = arr.getJsonObject(i);
-            JsonObject assetObj = obj.getJsonArray("assets").getJsonObject(0);
-            String name = obj.getString("name");
-            try {
-                objects.add(new MindustryVersion(
-                        name.isEmpty() ? "Build " + obj.getString("tag_name") : name,
-                        assetObj.getInt("size"),
-                        assetObj.getString("browser_download_url"),
-                        new SimpleDateFormat("yyyy-MM-ddhh:mm:ss").parse(assetObj.getString("created_at").replace("T", "").replace("Z", "")),
-                        obj.getString("body"),
-                        name.isEmpty()));
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        objects.addAll(new MindustryVersionParser().parseJsonArrayOfReleases(arr));
     }
 
     public List<MindustryVersion> getObjects() {
