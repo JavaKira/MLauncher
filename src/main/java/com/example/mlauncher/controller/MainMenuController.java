@@ -14,8 +14,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-import java.util.Objects;
-import java.util.Properties;
+import java.util.*;
 
 public class MainMenuController {
     private final MindustryVersionPool mindustryVersionPool;
@@ -31,17 +30,7 @@ public class MainMenuController {
 
     public MainMenuController() {
         mindustryVersionPool = new MindustryVersionPool();
-        Runnable versionsInitialize = () -> {
-            mindustryVersionPool.initialize(
-                    MLauncherPropertiesFacade.getInstance().getBeBuilds(),
-                    MLauncherPropertiesFacade.getInstance().getVersions()
-            );
-        };
-        versionsInitialize.run();
-        MLauncherPropertiesFacade.getInstance().setOnUpdated(event -> {
-            versionsInitialize.run();
-            update();
-        });
+        MLauncherPropertiesFacade.getInstance().setOnUpdated(event -> update());
     }
 
     @FXML
@@ -50,7 +39,7 @@ public class MainMenuController {
         versionBox.setValue(mindustryVersionPool.getObjects().stream()
                 .filter(mindustryVersion -> mindustryVersion.toString().equals(properties.getProperty("LastSelectedVersion")))
                 .findAny().orElse(mindustryVersionPool.getObjects().get(0)));
-        versionBox.getItems().addAll(mindustryVersionPool.getObjects());
+        versionBox.getItems().addAll(getMindustryVersions());
         versionBox.onActionProperty().setValue(event -> {
             properties.setProperty("LastSelectedVersion", versionBox.getValue().toString());
             MLauncherPropertiesFacade.getInstance().storeProperties();
@@ -80,7 +69,7 @@ public class MainMenuController {
     public void update() {
         MindustryVersion value = versionBox.getValue();
         versionBox.getItems().clear();
-        versionBox.getItems().addAll(mindustryVersionPool.getObjects());
+        versionBox.getItems().addAll(getMindustryVersions());
         versionBox.setValue(value);
         newsPane.getChildren().clear();
         mindustryVersionPool.getObjects().forEach(mindustryVersion -> {
@@ -88,6 +77,17 @@ public class MainMenuController {
             newsPane.getChildren().add(new Label(mindustryVersion.getName()));
             newsPane.getChildren().add(new Text(mindustryVersion.getBody() + "\n"));
         });
+    }
+
+    public List<MindustryVersion> getMindustryVersions() {
+        List<MindustryVersion> versionList = new ArrayList<>();
+        List<MindustryVersion> beBuilds = mindustryVersionPool.getObjects().stream().filter(MindustryVersion::isBE).toList();
+        List<MindustryVersion> builds = mindustryVersionPool.getObjects().stream().filter(mindustryVersion -> !mindustryVersion.isBE()).toList();
+        versionList.addAll(beBuilds.subList(0, MLauncherPropertiesFacade.getInstance().getBeBuilds()));
+        versionList.addAll(builds.subList(0, MLauncherPropertiesFacade.getInstance().getVersions()));
+        versionList.sort(Comparator.comparing(MindustryVersion::getCreatedAt));
+        Collections.reverse(versionList);
+        return versionList;
     }
 
     public void updateActionButton() {

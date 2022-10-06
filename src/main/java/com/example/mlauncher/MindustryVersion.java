@@ -3,9 +3,10 @@ package com.example.mlauncher;
 import com.example.mlauncher.util.FileDownload;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 
-public class MindustryVersion {
+public class MindustryVersion implements Serializable {
     private final String name;
     private final int size;
     private final String downloadUrl;
