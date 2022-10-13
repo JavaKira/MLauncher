@@ -16,8 +16,8 @@ ext {
   junitVersion = '5.8.2'
 }
 
-sourceCompatibility = '16'
-targetCompatibility = '16'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
@@ -25,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
   mainModule = 'com.example.mlauncher'
-  mainClass = 'com.example.mlauncher.HelloApplication'
+  mainClass = 'com.example.mlauncher.MLauncherApplication'
 }
 
 javafx {

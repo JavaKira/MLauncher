@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainMenuController {
     private final MindustryVersionPool mindustryVersionPool;
@@ -81,8 +82,8 @@ public class MainMenuController {
 
     public List<MindustryVersion> getMindustryVersions() {
         List<MindustryVersion> versionList = new ArrayList<>();
-        List<MindustryVersion> beBuilds = mindustryVersionPool.getObjects().stream().filter(MindustryVersion::isBE).toList();
-        List<MindustryVersion> builds = mindustryVersionPool.getObjects().stream().filter(mindustryVersion -> !mindustryVersion.isBE()).toList();
+        List<MindustryVersion> beBuilds = mindustryVersionPool.getObjects().stream().filter(MindustryVersion::isBE).collect(Collectors.toList());
+        List<MindustryVersion> builds = mindustryVersionPool.getObjects().stream().filter(mindustryVersion -> !mindustryVersion.isBE()).collect(Collectors.toList());
         versionList.addAll(beBuilds.subList(0, MLauncherPropertiesFacade.getInstance().getBeBuilds()));
         versionList.addAll(builds.subList(0, MLauncherPropertiesFacade.getInstance().getVersions()));
         versionList.sort(Comparator.comparing(MindustryVersion::getCreatedAt));
