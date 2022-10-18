@@ -42,6 +42,7 @@ public class MainMenuController {
                 .findAny().orElse(versionPool.getObjects().get(0)));
         versionBox.getItems().addAll(getMindustryVersions());
         versionBox.onActionProperty().setValue(event -> {
+            if (versionBox.getItems().isEmpty()) return;
             properties.setProperty("LastSelectedVersion", versionBox.getValue().toString());
             PropertiesFacade.getInstance().storeProperties();
             updateActionButton();
