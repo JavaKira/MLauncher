@@ -2,7 +2,7 @@ package com.example.mlauncher.controller;
 
 import com.example.mlauncher.PropertiesFacade;
 import com.example.mlauncher.Version;
-import com.example.mlauncher.MindustryVersionPool;
+import com.example.mlauncher.VersionPool;
 import com.example.mlauncher.util.FileDownload;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MainMenuController {
-    private final MindustryVersionPool mindustryVersionPool;
+    private final VersionPool versionPool;
 
     @FXML
     private ChoiceBox<Version> versionBox;
@@ -30,16 +30,16 @@ public class MainMenuController {
     private Pane newsPane;
 
     public MainMenuController() {
-        mindustryVersionPool = new MindustryVersionPool();
+        versionPool = new VersionPool();
         PropertiesFacade.getInstance().setOnUpdated(event -> update());
     }
 
     @FXML
     public void initialize() {
         Properties properties = PropertiesFacade.getInstance().getProperties();
-        versionBox.setValue(mindustryVersionPool.getObjects().stream()
+        versionBox.setValue(versionPool.getObjects().stream()
                 .filter(version -> version.toString().equals(properties.getProperty("LastSelectedVersion")))
-                .findAny().orElse(mindustryVersionPool.getObjects().get(0)));
+                .findAny().orElse(versionPool.getObjects().get(0)));
         versionBox.getItems().addAll(getMindustryVersions());
         versionBox.onActionProperty().setValue(event -> {
             properties.setProperty("LastSelectedVersion", versionBox.getValue().toString());
@@ -60,7 +60,7 @@ public class MainMenuController {
             });
         });
         versionBox.onActionProperty().get().handle(new ActionEvent());
-        mindustryVersionPool.getObjects().forEach(version -> {
+        versionPool.getObjects().forEach(version -> {
             if (version.isBE()) return;
             newsPane.getChildren().add(new Label(version.getName()));
             newsPane.getChildren().add(new Text(version.getBody() + "\n"));
@@ -73,7 +73,7 @@ public class MainMenuController {
         versionBox.getItems().addAll(getMindustryVersions());
         versionBox.setValue(value);
         newsPane.getChildren().clear();
-        mindustryVersionPool.getObjects().forEach(version -> {
+        versionPool.getObjects().forEach(version -> {
             if (version.isBE()) return;
             newsPane.getChildren().add(new Label(version.getName()));
             newsPane.getChildren().add(new Text(version.getBody() + "\n"));
@@ -82,8 +82,8 @@ public class MainMenuController {
 
     public List<Version> getMindustryVersions() {
         List<Version> versionList = new ArrayList<>();
-        List<Version> beBuilds = mindustryVersionPool.getObjects().stream().filter(Version::isBE).collect(Collectors.toList());
-        List<Version> builds = mindustryVersionPool.getObjects().stream().filter(version -> !version.isBE()).collect(Collectors.toList());
+        List<Version> beBuilds = versionPool.getObjects().stream().filter(Version::isBE).collect(Collectors.toList());
+        List<Version> builds = versionPool.getObjects().stream().filter(version -> !version.isBE()).collect(Collectors.toList());
         versionList.addAll(beBuilds.subList(0, PropertiesFacade.getInstance().getBeBuilds()));
         versionList.addAll(builds.subList(0, PropertiesFacade.getInstance().getVersions()));
         versionList.sort(Comparator.comparing(Version::getCreatedAt));

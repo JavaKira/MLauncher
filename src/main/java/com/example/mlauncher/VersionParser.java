@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MindustryVersionParser {
+public class VersionParser {
     public List<Version> parseJsonArrayOfReleases(JsonArray arr) {
         List<Version> versions = new ArrayList<>();
         for (int i = 0; i < arr.size(); i++) {

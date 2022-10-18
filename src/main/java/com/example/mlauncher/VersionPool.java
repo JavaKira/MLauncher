@@ -6,10 +6,10 @@ import javax.json.JsonArray;
 import java.io.*;
 import java.util.*;
 
-public class MindustryVersionPool {
+public class VersionPool {
     private final List<Version> objects = new ArrayList<>();
 
-    public MindustryVersionPool() {
+    public VersionPool() {
         List<Version> githubVersions = null;
         List<Version> fileVersions = null;
         try {
@@ -78,7 +78,7 @@ public class MindustryVersionPool {
 
     private List<Version> readRepositoriesReleases(String url) {
         JsonArray arr = URLJsonReader.readJsonArray(url);
-        return new MindustryVersionParser().parseJsonArrayOfReleases(arr);
+        return new VersionParser().parseJsonArrayOfReleases(arr);
     }
 
     public List<Version> getObjects() {
