@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
-public class MindustryVersion implements Serializable {
+public class Version implements Serializable {
     private final String name;
     private final int size;
     private final String downloadUrl;
@@ -15,7 +15,7 @@ public class MindustryVersion implements Serializable {
     private final String body;
     private final boolean isBE;
 
-    public MindustryVersion(String name, int size, String downloadUrl, Date createdAt, String body, boolean isBE) {
+    public Version(String name, int size, String downloadUrl, Date createdAt, String body, boolean isBE) {
         this.name = name;
         this.size = size;
         this.downloadUrl = downloadUrl;

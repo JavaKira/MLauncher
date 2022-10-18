@@ -6,21 +6,21 @@ import javafx.event.EventHandler;
 import java.io.*;
 import java.util.Properties;
 
-public class MLauncherPropertiesFacade {
-    public static MLauncherPropertiesFacade instance;
+public class PropertiesFacade {
+    public static PropertiesFacade instance;
 
     private final File file;
     private final Properties properties;
     private EventHandler<ActionEvent> onUpdated = event -> {};
 
-    public static MLauncherPropertiesFacade getInstance() {
+    public static PropertiesFacade getInstance() {
         if (instance == null)
-            instance = new MLauncherPropertiesFacade();
+            instance = new PropertiesFacade();
 
         return instance;
     }
 
-    protected MLauncherPropertiesFacade() {
+    protected PropertiesFacade() {
         file = new File("settings.properties");
         properties = new Properties();
         try {

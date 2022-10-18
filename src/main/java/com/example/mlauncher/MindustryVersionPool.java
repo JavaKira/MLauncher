@@ -7,11 +7,11 @@ import java.io.*;
 import java.util.*;
 
 public class MindustryVersionPool {
-    private final List<MindustryVersion> objects = new ArrayList<>();
+    private final List<Version> objects = new ArrayList<>();
 
     public MindustryVersionPool() {
-        List<MindustryVersion> githubVersions = null;
-        List<MindustryVersion> fileVersions = null;
+        List<Version> githubVersions = null;
+        List<Version> fileVersions = null;
         try {
             githubVersions = loadReleases();
         } catch (Exception ignore) {
@@ -43,11 +43,11 @@ public class MindustryVersionPool {
     }
 
     @SuppressWarnings("unchecked")
-    private List<MindustryVersion> load() {
-        List<MindustryVersion> versions;
+    private List<Version> load() {
+        List<Version> versions;
         try (FileInputStream fileInputStream = new FileInputStream("versionsList");
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-            versions = (List<MindustryVersion>) objectInputStream.readObject();
+            versions = (List<Version>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +55,7 @@ public class MindustryVersionPool {
         return versions;
     }
 
-    private void write(List<MindustryVersion> versions) {
+    private void write(List<Version> versions) {
         try (FileOutputStream fileOutputStream = new FileOutputStream("versionsList");
              ObjectOutputStream objectInputStream = new ObjectOutputStream(fileOutputStream)) {
             objectInputStream.writeObject(versions);
@@ -64,24 +64,24 @@ public class MindustryVersionPool {
         }
     }
 
-    public List<MindustryVersion> loadReleases() {
-        List<MindustryVersion> versionsList = new ArrayList<>(
+    public List<Version> loadReleases() {
+        List<Version> versionsList = new ArrayList<>(
                 readRepositoriesReleases("https://api.github.com/repos/anuken/Mindustry/releases" + "?per_page=" + 25)
         );
         versionsList.addAll(
                 readRepositoriesReleases("https://api.github.com/repos/anuken/MindustryBuilds/releases" + "?per_page=" + 25)
         );
-        versionsList.sort(Comparator.comparing(MindustryVersion::getCreatedAt));
+        versionsList.sort(Comparator.comparing(Version::getCreatedAt));
         Collections.reverse(versionsList);
         return versionsList;
     }
 
-    private List<MindustryVersion> readRepositoriesReleases(String url) {
+    private List<Version> readRepositoriesReleases(String url) {
         JsonArray arr = URLJsonReader.readJsonArray(url);
         return new MindustryVersionParser().parseJsonArrayOfReleases(arr);
     }
 
-    public List<MindustryVersion> getObjects() {
+    public List<Version> getObjects() {
         return Collections.unmodifiableList(objects);
     }
 }

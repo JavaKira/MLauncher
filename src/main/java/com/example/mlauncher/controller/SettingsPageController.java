@@ -1,10 +1,9 @@
 package com.example.mlauncher.controller;
 
-import com.example.mlauncher.MLauncherPropertiesFacade;
+import com.example.mlauncher.PropertiesFacade;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 
@@ -26,21 +25,21 @@ public class SettingsPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        beBuildsSlider.setValue(MLauncherPropertiesFacade.getInstance().getBeBuilds());
+        beBuildsSlider.setValue(PropertiesFacade.getInstance().getBeBuilds());
         beBuildsSlider.setOnMouseReleased(actionEvent -> {
             System.out.println(beBuildsSlider.getValue());
-            MLauncherPropertiesFacade.getInstance().setBeBuilds((int) beBuildsSlider.getValue());
-            MLauncherPropertiesFacade.getInstance().storeProperties();
+            PropertiesFacade.getInstance().setBeBuilds((int) beBuildsSlider.getValue());
+            PropertiesFacade.getInstance().storeProperties();
         });
-        beBuildsSlider.setValue(MLauncherPropertiesFacade.getInstance().getVersions());
+        beBuildsSlider.setValue(PropertiesFacade.getInstance().getVersions());
         buildsSlider.setOnMouseReleased(actionEvent -> {
-            MLauncherPropertiesFacade.getInstance().setVersions((int) buildsSlider.getValue());
-            MLauncherPropertiesFacade.getInstance().storeProperties();
+            PropertiesFacade.getInstance().setVersions((int) buildsSlider.getValue());
+            PropertiesFacade.getInstance().storeProperties();
         });
-        pathTextField.setText(MLauncherPropertiesFacade.getInstance().getPath());
+        pathTextField.setText(PropertiesFacade.getInstance().getPath());
         pathTextField.setOnAction(actionEvent -> {
-            MLauncherPropertiesFacade.getInstance().setPath(pathTextField.getText());
-            MLauncherPropertiesFacade.getInstance().storeProperties();
+            PropertiesFacade.getInstance().setPath(pathTextField.getText());
+            PropertiesFacade.getInstance().storeProperties();
         });
         pathOpenButton.setOnAction(actionEvent -> {
             try {
@@ -50,8 +49,8 @@ public class SettingsPageController implements Initializable {
             }
         });
         resetButton.setOnAction(actionEvent -> {
-            MLauncherPropertiesFacade.getInstance().setDefaults();
-            MLauncherPropertiesFacade.getInstance().storeProperties();
+            PropertiesFacade.getInstance().setDefaults();
+            PropertiesFacade.getInstance().storeProperties();
             initialize(location, resources);
         });
     }

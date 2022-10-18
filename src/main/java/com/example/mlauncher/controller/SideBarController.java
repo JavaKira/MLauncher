@@ -1,6 +1,6 @@
 package com.example.mlauncher.controller;
 
-import com.example.mlauncher.MLauncherApplication;
+import com.example.mlauncher.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,13 +25,13 @@ public class SideBarController implements Initializable {
 
     public void openSettingsPage() {
         if (settingsPage == null)
-            settingsPage = loadPage(MLauncherApplication.class.getResource("SettingsPage.fxml"));
+            settingsPage = loadPage(Application.class.getResource("SettingsPage.fxml"));
         openPage(settingsPage);
     }
 
     public void openHomePage() {
         if (homePage == null)
-            homePage = loadPage(MLauncherApplication.class.getResource("HomePage.fxml"));
+            homePage = loadPage(Application.class.getResource("HomePage.fxml"));
         openPage(homePage);
     }
 

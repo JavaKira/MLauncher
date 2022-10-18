@@ -1,7 +1,7 @@
 package com.example.mlauncher.controller;
 
-import com.example.mlauncher.MLauncherPropertiesFacade;
-import com.example.mlauncher.MindustryVersion;
+import com.example.mlauncher.PropertiesFacade;
+import com.example.mlauncher.Version;
 import com.example.mlauncher.MindustryVersionPool;
 import com.example.mlauncher.util.FileDownload;
 import javafx.application.Platform;
@@ -21,7 +21,7 @@ public class MainMenuController {
     private final MindustryVersionPool mindustryVersionPool;
 
     @FXML
-    private ChoiceBox<MindustryVersion> versionBox;
+    private ChoiceBox<Version> versionBox;
     @FXML
     private ProgressBar downloadProgressBar;
     @FXML
@@ -31,19 +31,19 @@ public class MainMenuController {
 
     public MainMenuController() {
         mindustryVersionPool = new MindustryVersionPool();
-        MLauncherPropertiesFacade.getInstance().setOnUpdated(event -> update());
+        PropertiesFacade.getInstance().setOnUpdated(event -> update());
     }
 
     @FXML
     public void initialize() {
-        Properties properties = MLauncherPropertiesFacade.getInstance().getProperties();
+        Properties properties = PropertiesFacade.getInstance().getProperties();
         versionBox.setValue(mindustryVersionPool.getObjects().stream()
-                .filter(mindustryVersion -> mindustryVersion.toString().equals(properties.getProperty("LastSelectedVersion")))
+                .filter(version -> version.toString().equals(properties.getProperty("LastSelectedVersion")))
                 .findAny().orElse(mindustryVersionPool.getObjects().get(0)));
         versionBox.getItems().addAll(getMindustryVersions());
         versionBox.onActionProperty().setValue(event -> {
             properties.setProperty("LastSelectedVersion", versionBox.getValue().toString());
-            MLauncherPropertiesFacade.getInstance().storeProperties();
+            PropertiesFacade.getInstance().storeProperties();
             updateActionButton();
             actionButton.onActionProperty().setValue(event1 -> {
                 if (versionBox.getValue().isDownloaded())
@@ -60,33 +60,33 @@ public class MainMenuController {
             });
         });
         versionBox.onActionProperty().get().handle(new ActionEvent());
-        mindustryVersionPool.getObjects().forEach(mindustryVersion -> {
-            if (mindustryVersion.isBE()) return;
-            newsPane.getChildren().add(new Label(mindustryVersion.getName()));
-            newsPane.getChildren().add(new Text(mindustryVersion.getBody() + "\n"));
+        mindustryVersionPool.getObjects().forEach(version -> {
+            if (version.isBE()) return;
+            newsPane.getChildren().add(new Label(version.getName()));
+            newsPane.getChildren().add(new Text(version.getBody() + "\n"));
         });
     }
 
     public void update() {
-        MindustryVersion value = versionBox.getValue();
+        Version value = versionBox.getValue();
         versionBox.getItems().clear();
         versionBox.getItems().addAll(getMindustryVersions());
         versionBox.setValue(value);
         newsPane.getChildren().clear();
-        mindustryVersionPool.getObjects().forEach(mindustryVersion -> {
-            if (mindustryVersion.isBE()) return;
-            newsPane.getChildren().add(new Label(mindustryVersion.getName()));
-            newsPane.getChildren().add(new Text(mindustryVersion.getBody() + "\n"));
+        mindustryVersionPool.getObjects().forEach(version -> {
+            if (version.isBE()) return;
+            newsPane.getChildren().add(new Label(version.getName()));
+            newsPane.getChildren().add(new Text(version.getBody() + "\n"));
         });
     }
 
-    public List<MindustryVersion> getMindustryVersions() {
-        List<MindustryVersion> versionList = new ArrayList<>();
-        List<MindustryVersion> beBuilds = mindustryVersionPool.getObjects().stream().filter(MindustryVersion::isBE).collect(Collectors.toList());
-        List<MindustryVersion> builds = mindustryVersionPool.getObjects().stream().filter(mindustryVersion -> !mindustryVersion.isBE()).collect(Collectors.toList());
-        versionList.addAll(beBuilds.subList(0, MLauncherPropertiesFacade.getInstance().getBeBuilds()));
-        versionList.addAll(builds.subList(0, MLauncherPropertiesFacade.getInstance().getVersions()));
-        versionList.sort(Comparator.comparing(MindustryVersion::getCreatedAt));
+    public List<Version> getMindustryVersions() {
+        List<Version> versionList = new ArrayList<>();
+        List<Version> beBuilds = mindustryVersionPool.getObjects().stream().filter(Version::isBE).collect(Collectors.toList());
+        List<Version> builds = mindustryVersionPool.getObjects().stream().filter(version -> !version.isBE()).collect(Collectors.toList());
+        versionList.addAll(beBuilds.subList(0, PropertiesFacade.getInstance().getBeBuilds()));
+        versionList.addAll(builds.subList(0, PropertiesFacade.getInstance().getVersions()));
+        versionList.sort(Comparator.comparing(Version::getCreatedAt));
         Collections.reverse(versionList);
         return versionList;
     }

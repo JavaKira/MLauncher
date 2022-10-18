@@ -1,7 +1,5 @@
 package com.example.mlauncher;
 
-import com.example.mlauncher.util.URLJsonReader;
-
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.text.ParseException;
@@ -10,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MindustryVersionParser {
-    public List<MindustryVersion> parseJsonArrayOfReleases(JsonArray arr) {
-        List<MindustryVersion> versions = new ArrayList<>();
+    public List<Version> parseJsonArrayOfReleases(JsonArray arr) {
+        List<Version> versions = new ArrayList<>();
         for (int i = 0; i < arr.size(); i++) {
             JsonObject obj = arr.getJsonObject(i);
             JsonObject assetObj = obj.getJsonArray("assets").getJsonObject(0);
             String name = obj.getString("name");
             try {
-                versions.add(new MindustryVersion(
+                versions.add(new Version(
                         name.isEmpty() ? "Build " + obj.getString("tag_name") : name,
                         assetObj.getInt("size"),
                         assetObj.getString("browser_download_url"),
