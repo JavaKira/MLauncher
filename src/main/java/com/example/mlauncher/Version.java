@@ -1,12 +1,17 @@
 package com.example.mlauncher;
 
 import com.example.mlauncher.util.FileDownload;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
 public class Version implements Serializable {
+    private static final Logger log = LogManager.getLogger(Version.class);
+
     private final String name;
     private final int size;
     private final String downloadUrl;
@@ -35,14 +40,15 @@ public class Version implements Serializable {
     }
 
     public FileDownload download() {
-        //noinspection ResultOfMethodCallIgnored
-        folder.mkdir();
+        log.info("Starting download version: " + name);
+        log.info("Folder: " + folder.getAbsolutePath() + " created: " + folder.mkdir());
         FileDownload fileDownload = new FileDownload(folder.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
         new Thread(fileDownload::start).start();
         return fileDownload;
     }
 
     public void launch() {
+        log.info("Starting launch version: " + name);
         try {
             Runtime.getRuntime().exec(new String[]{"java", "-jar", '"' + folder.getAbsolutePath() + "\\Mindustry.jar" + '"'});
         } catch (IOException e) {
