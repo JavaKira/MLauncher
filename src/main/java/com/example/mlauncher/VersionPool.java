@@ -1,12 +1,16 @@
 package com.example.mlauncher;
 
 import com.example.mlauncher.util.URLJsonReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.json.JsonArray;
 import java.io.*;
 import java.util.*;
 
 public class VersionPool {
+    private static final Logger log = LogManager.getLogger(VersionPool.class);
+
     private final List<Version> objects = new ArrayList<>();
 
     public VersionPool() {
@@ -15,31 +19,34 @@ public class VersionPool {
         try {
             githubVersions = loadReleases();
         } catch (Exception ignore) {
-            ignore.printStackTrace();
+            log.warn("Cannot releases from github");
         }
 
         try {
             fileVersions = load();
         } catch (Exception ignored) {
-
+            log.warn("Cannot load versionsList file");
         }
 
         if (fileVersions == null) {
             if (githubVersions == null) {
-                throw new RuntimeException("fucked up, hopeless situation");
+                log.error("fucked up, hopeless situation: launcher doesnt have any version");
+                throw new RuntimeException("fucked up, hopeless situation: launcher doesnt have any version");
             }
 
+            log.info("Writing to versionList from github");
             write(githubVersions);
             objects.addAll(githubVersions);
             return;
         }
 
         if (!fileVersions.equals(githubVersions)) {
+            log.info("Updating versionList from github");
             write(githubVersions);
         }
 
+        log.info("Loading versions from versionList file");
         objects.addAll(fileVersions);
-        System.out.println("load from file");
     }
 
     @SuppressWarnings("unchecked")
