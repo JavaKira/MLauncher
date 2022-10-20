@@ -40,11 +40,19 @@ public class Version implements Serializable {
     }
 
     public FileDownload download() {
+        createVersionDirectory();
         log.info("Starting download version: " + name);
-        log.info("Folder: " + folder.getAbsolutePath() + " created: " + folder.mkdir());
+        log.info("Folder " + folder.getAbsolutePath() + " status: " +
+                (folder.exists() ? "exists" : folder.mkdir() ? "created" : "failed to create"));
         FileDownload fileDownload = new FileDownload(folder.getAbsolutePath() + "\\Mindustry.jar", downloadUrl);
         new Thread(fileDownload::start).start();
         return fileDownload;
+    }
+
+    public void createVersionDirectory() {
+        File folder = new File(System.getenv("APPDATA") + "\\MLauncher\\Versions");
+        log.info("Folder " + folder.getAbsolutePath() + " status: " +
+                (folder.exists() ? "exists" : folder.mkdir() ? "created" : "failed to create"));
     }
 
     public void launch() {
