@@ -31,7 +31,7 @@ public class SettingsPageController implements Initializable {
             PropertiesFacade.getInstance().setBeBuilds((int) beBuildsSlider.getValue());
             PropertiesFacade.getInstance().storeProperties();
         });
-        beBuildsSlider.setValue(PropertiesFacade.getInstance().getVersions());
+        buildsSlider.setValue(PropertiesFacade.getInstance().getVersions());
         buildsSlider.setOnMouseReleased(actionEvent -> {
             PropertiesFacade.getInstance().setVersions((int) buildsSlider.getValue());
             PropertiesFacade.getInstance().storeProperties();
