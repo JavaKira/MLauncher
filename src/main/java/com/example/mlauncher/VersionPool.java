@@ -40,7 +40,7 @@ public class VersionPool {
             return;
         }
 
-        if (!fileVersions.equals(githubVersions)) {
+        if (githubVersions != null && !fileVersions.equals(githubVersions)) {
             log.info("Updating versionList from github");
             write(githubVersions);
         }
@@ -73,10 +73,10 @@ public class VersionPool {
 
     public List<Version> loadReleases() {
         List<Version> versionsList = new ArrayList<>(
-                readRepositoriesReleases("https://api.github.com/repos/anuken/Mindustry/releases" + "?per_page=" + 25)
+                readRepositoriesReleases("https://api.github.com/repos/anuken/Mindustry/releases" + "?per_page=" + 100)
         );
         versionsList.addAll(
-                readRepositoriesReleases("https://api.github.com/repos/anuken/MindustryBuilds/releases" + "?per_page=" + 25)
+                readRepositoriesReleases("https://api.github.com/repos/anuken/MindustryBuilds/releases" + "?per_page=" + 100)
         );
         versionsList.sort(Comparator.comparing(Version::getCreatedAt));
         Collections.reverse(versionsList);

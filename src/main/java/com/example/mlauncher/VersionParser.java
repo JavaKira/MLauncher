@@ -12,7 +12,9 @@ public class VersionParser {
         List<Version> versions = new ArrayList<>();
         for (int i = 0; i < arr.size(); i++) {
             JsonObject obj = arr.getJsonObject(i);
-            JsonObject assetObj = obj.getJsonArray("assets").getJsonObject(0);
+            JsonArray assetsArr = obj.getJsonArray("assets");
+            if (assetsArr.isEmpty()) continue;
+            JsonObject assetObj = assetsArr.getJsonObject(0);
             String name = obj.getString("name");
             try {
                 versions.add(new Version(
